@@ -1,0 +1,182 @@
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4><%= title %> </h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Salvage</a></li>
+                            <li class="breadcrumb-item"><a href="#">Items</a></li>
+                            <li class="breadcrumb-item"><a href="/auth/all-approved-items">All Approved Items</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><%= title %> </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    <!--div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            January 2018
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Export List</a>
+                            <a class="dropdown-item" href="#">Policies</a>
+                            <a class="dropdown-item" href="#">View Assets</a>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bootstrap Select Start -->
+        <div class="pd-20 card-box mb-30">
+            <% if(success) {%>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong><i class="icon-copy fa fa-check" aria-hidden="true"></i> Success Message</strong><br/> 
+                    <%= success %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %> 
+                <% if(error){ %> 
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong><i class="icon-copy fa fa-times" aria-hidden="true"></i> Error Message</strong><br/>
+                    <%= error %>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <% } %> 
+            <form method="post" action="/auth/delete-item">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <input type="hidden" name="itemId" value="<%= item.item_id %>">
+                            <label>Name</label>
+                            <input type="text" class="form-control" name="name" value="<%= item.name %>" placeholder="Item Name" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="text" class="form-control" name="phone" value="<%= item.phone %>" placeholder="Contact Number" readonly>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Registation Number</label>
+                            <input type="text" class="form-control" name="regNo" value="<%= item.reg_no %> " placeholder="Registation Number" readonly> 
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Brand</label>
+                            <select class="custom-select2 form-control" name="brandId" style="width: 100%; height: 38px;">
+                                <option selected value="<%= brand.brand_id %> "><%= brand.name %> </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Close Date</label>
+                            <input class="form-control" value="<%= new Date(item.close_date).toDateString() %>" placeholder="Select Close Date" type="text" name="closeDate" readonly>  
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Claim Number</label>
+                            <input type="text" class="form-control" value="<%= item.claim_no %> " name="claimNo" placeholder="Claim Number" readonly> 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Reserve Price</label>
+                            <input type="text" class="form-control" value="<%= (item.reserve_price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %> " name="reservePrice" placeholder="Reserve Price" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>State</label>
+                            <select class="custom-select2 form-control" name="stateId" style="width: 100%; height: 38px;">
+                                <option selected value="<%= state.state_id %> "><%= state.name %> </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Front Image</label><br>
+                            <a href="/upload/frontimage/<%= item.item_id %>/<%= item.front_image %> " download><%= item.front_image %></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label>Gallery</label>
+                        <% gallery.forEach((image) =>{ %>
+                        <br> <a href="/upload/gallery/<%= item.item_id %>/<%= image.image %> " download><%= image.image %></a>
+                       <% }); %> 
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Created By</label>
+                            <input type="text" class="form-control" name="createdBy" value="<%= createdBy.first_name.trim() %> <%= createdBy.last_name %>" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Created At</label>
+                            <input type="text" class="form-control" name="createdAt" value="<%= new Date(item.created_at).toDateString() %>" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Approved By</label>
+                            <input type="text" class="form-control" name="createdBy" value="<%= approvedBy.first_name.trim() %> <%= approvedBy.last_name %>" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Approved At</label>
+                            <input type="text" class="form-control" name="createdAt" value="<%= new Date(item.approved_at).toDateString() %>" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea name="address" class="form-control" readonly><%= item.address %></textarea> 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="btn-list">
+                            <button type="submit" class="btn btn-danger">Delete Item</button>
+                            <a type="button" href="/auth/all-approved-items" class="btn btn-secondary">Go Back</a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        <!-- Bootstrap Select End -->
+
+    </div>
+    <%- include('./partials/backend-footer.ejs') %> 
+</div>

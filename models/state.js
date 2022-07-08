@@ -1,0 +1,1 @@
+const query = 'CREATE TABLE `salvage`.`states` ( `state_id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(100) NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `created_by` INT NOT NULL , `updated_by` INT NULL , `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NULL , PRIMARY KEY (`state_id`)) ENGINE = InnoDB'

@@ -1,0 +1,28 @@
+<div class="header">
+    <div class="header-left">
+        <div class="menu-icon dw dw-menu"></div>
+        
+    </div>
+    <div class="header-right">
+        
+        <div class="user-info-dropdown">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                    <span class="user-icon"> 
+                        <% if(user.photo) {%> 
+                        <img src="/upload/users/<%= user.id %>/<%= user.photo %>" alt="">
+                        <% }else{ %>  
+                        <img src="/backend/vendors/images/photo1.jpg" alt="">
+                        <% } %> 
+                    </span>
+                    <span class="user-name"><%= user.email %> </span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="/auth/update-profile-form"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="/auth/change-password-form/<%= user.id %> "><i class="dw dw-settings2"></i> Change Password</a>
+                    <a class="dropdown-item" href="/auth/logout"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

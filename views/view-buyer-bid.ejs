@@ -1,0 +1,110 @@
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-10 col-sm-12">
+                    <div class="title">
+                        <h4><%= title %></h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                            <li class="breadcrumb-item"><a href="#">Items</a></li>
+                            <li class="breadcrumb-item"><a href="/auth/all-closed-items">All Closed Items</a></li>
+                            <li class="breadcrumb-item"><a href="/auth/view-all-closed-item-bids/<%= bid.item_id %>">view Bids</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><%= title %> </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-2 col-sm-12 text-right">
+                    <!--div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            January 2018
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Export List</a>
+                            <a class="dropdown-item" href="#">Policies</a>
+                            <a class="dropdown-item" href="#">View Assets</a>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+        </div>
+        <div class="invoice-wrap">
+            <div class="invoice-box">
+                <div class="invoice-header">
+                    <div class="logo text-center">
+                    </div>
+                </div>
+                
+                <div class="row pb-30">
+                    
+                </div>
+                <div class="invoice-desc pb-30">
+                    <div class="invoice-desc-head clearfix">
+                        <div class="invoice-sub">Column</div>
+                        <div class="invoice-rate">Value</div>
+                    </div>
+                    <div class="invoice-desc-body">
+                        <ul>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Buyer</div>
+                                <div class="invoice-rate"><%= bid.buyer %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Amount</div>
+                                <div class="invoice-rate"><%= (bid.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Item</div>
+                                <div class="invoice-rate"><%= bid.item %> </div>
+                            </li>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Narration</div>
+                                <div class="invoice-rate"><%= bid.narration %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Bid Status</div>
+                                <div class="invoice-rate"><%= bid.bid_status %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Created At</div>
+                                <div class="invoice-rate"><%= bid.created_at  %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Updated At</div>
+                                <div class="invoice-rate"><%= bid.updated_at %> </div>
+                            </li>
+                            <% if(bid.approved_by){ %>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Approved By</div>
+                                <div class="invoice-rate"><%= bid.approved_by %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Approved At</div>
+                                <div class="invoice-rate"><%= bid.approved_at  %> </div>
+                            </li>
+                            <% } %> 
+                            <% if(bid.declined_by) { %>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Declined BY</div>
+                                <div class="invoice-rate"><%= bid.declined_by  %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Declined At</div>
+                                <div class="invoice-rate"><%= bid.declined_at %> </div>
+                            </li>
+                            <% } %>
+                        </ul>
+                        <div class="btn-list">
+                            <a type="button" href="/auth/view-all-closed-item-bids/<%= bid.item_id %>" class="btn btn-secondary">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <%- include('./partials/backend-footer.ejs') %> 
+</div>

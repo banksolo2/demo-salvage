@@ -1,0 +1,1 @@
+const query = 'CREATE TABLE `salvage`.`buyers` ( `buyer_id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(200) NOT NULL , `phone` INT(200) NOT NULL , `email` VARCHAR(100) NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NULL , PRIMARY KEY (`buyer_id`)) ENGINE = InnoDB;'

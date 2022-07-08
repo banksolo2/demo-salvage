@@ -1,0 +1,96 @@
+<section class="page-title page-title-2 image-bg overlay parallax">
+    <div class="background-image-holder">
+        <img alt="Background Image" class="background-image" src="/frontend/img/cover15.jpg">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2 class="uppercase mb8">Large Image</h2>
+                <p class="lead mb0">A descriptive subtitle for your page.</p>
+            </div>
+            <div class="col-md-6 text-right">
+                <ol class="breadcrumb breadcrumb-2">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Elements</a>
+                    </li>
+                    <li class="active">Page Titles</li>
+                </ol>
+            </div>
+        </div>
+        
+    </div>
+    
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center">
+                <h4 class="uppercase mb16">Contained Tiles</h4>
+                <p class="lead mb80">
+                    These multipurpose tiles make ideal presentations for project showcases or as links to auxilary pages around your site.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+           <div class="col-md-8 col-sm-10 col-sm-offset-1 col-md-offset-2">
+                <% for(let item of items){ %> 
+                <div class="horizontal-tile">
+                    <div class="tile-left">
+                        <a href="#">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="/upload/frontImage/<%= item.item_id %>/<%= item.front_image %>">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="tile-right bg-secondary">
+                        <div class="description">
+                            <h4 class="mb8"><%= item.name %> </h4>
+                            <div class="uppercase">Brand : <%= item.brand %> </div>
+                            <div class="uppercase">State : <%= item.state %> </div>
+                            <div>
+                            <span class="uppercase">Address : </span><br/>
+                               <address class="uppercase"><%= item.address %> </address>  
+                            </div>
+                            <a class="btn" href="#">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                <% } %> 
+                <div class="text-center mt40">
+                    <ul class="pagination">
+                        <% if(pageNo > 1){ %> 
+                        <li>
+                            <a href="/?page=<%= pageNo - 1 %>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <% } %>
+                        <% for(let i = pageNo; i <= noOfPages; i++ ){ %>
+                           <% if(pageNo === i){ %> 
+                            <li class="active">
+                                <a href="/?page=<%= i %>"><%= i %> </a>
+                            </li>
+                            <% break %> 
+                            <% }%>
+                            <li> 
+                                <a href="/?page=<%= i %>"><%= i %> </a>
+                            </li> 
+                               
+
+                        
+                        <% } %> 
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+           </div>
+           
+        </div>
+    </div>
+</section>

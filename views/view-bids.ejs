@@ -1,0 +1,89 @@
+
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4><%= title %></h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                            <li class="breadcrumb-item"><a href="#">Items</a></li>
+                            <li class="breadcrumb-item"><a href="/auth/all-closed-items">All Closed Items</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><%= title %> </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    <div class="dropdown">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Simple Datatable start -->
+        <div class="card-box mb-30">
+            <div class="pd-20">
+                <h4 class="text-blue h4"></h4>
+                <% if(success) {%>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong><i class="icon-copy fa fa-check" aria-hidden="true"></i> Success Message</strong><br/> 
+                        <%= success %>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <% } %> 
+                    <% if(error){ %> 
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong><i class="icon-copy fa fa-times" aria-hidden="true"></i> Error Message</strong><br/>
+                        <%= error %>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <% } %> 
+            </div>
+            <div class="pb-20">
+                <table class="data-table table stripe hover nowrap">
+                    <thead>
+                        <tr>
+                            <th class="table-plus datatable-sort">Amount</th>
+                            <th>Item</th>
+                            <th>Buyer</th>
+                            <th>Narration</th>
+                            <th>Status</th>
+                            <th class="datatable-nosort">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% bids.forEach((bid)=>{ %> 
+                        <tr>
+                            <td class="table-plus"><%= (bid.amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')  %> </td>
+                            <td><%= bid.item %></td>
+                            <td><a href="/auth/view-buyer-info/<%= bid.buyer_id %>?item=<%= bid.item_id %> "><%= bid.buyer %></a></td>
+                            <td><%= bid.narration %> </td>
+                            <td><%= bid.bid_status %> </td>
+                            <td>
+                                <div class="dropdown">
+                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        <i class="dw dw-more"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                        <a class="dropdown-item" href="/auth/view-buyer-closed-bid/<%= bid.bid_id %> "><i class="dw dw-eye"></i> View</a>
+                                        
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <% }) %> 
+                     </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Simple Datatable End -->
+    </div>
+    <%- include('./partials/backend-footer.ejs') %> 
+</div>
+

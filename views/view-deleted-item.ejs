@@ -1,0 +1,114 @@
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-10 col-sm-12">
+                    <div class="title">
+                        <h4><%= title %></h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Salvage</a></li>
+                            <li class="breadcrumb-item"><a href="#">Items</a></li>
+                            <li class="breadcrumb-item"><a href="/auth/all-deleted-items">All Deleted Items</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"><%= title %> </li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-2 col-sm-12 text-right">
+                    <!--div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                            January 2018
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Export List</a>
+                            <a class="dropdown-item" href="#">Policies</a>
+                            <a class="dropdown-item" href="#">View Assets</a>
+                        </div>
+                    </div-->
+                </div>
+            </div>
+        </div>
+        <div class="invoice-wrap">
+            <div class="invoice-box">
+                <div class="invoice-header">
+                    <div class="logo text-center">
+                        
+                    </div>
+                </div>
+                
+                <div class="row pb-30">
+                    
+                </div>
+                <div class="invoice-desc pb-30">
+                    <div class="invoice-desc-head clearfix">
+                        <div class="invoice-sub">Column</div>
+                        <div class="invoice-rate">Value</div>
+                    </div>
+                    <div class="invoice-desc-body">
+                        <ul>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Name</div>
+                                <div class="invoice-rate"><%= item.name %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Registration NO</div>
+                                <div class="invoice-rate"><%= item.reg_no %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Phone</div>
+                                <div class="invoice-rate"><%= item.phone %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Address</div>
+                                <div class="invoice-rate"><%= item.address %> </div>
+                            </li>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">State</div>
+                                <div class="invoice-rate"><%= item.state %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Close Date</div>
+                                <div class="invoice-rate"><%= item.close_date %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Reserve Price</div>
+                                <div class="invoice-rate"><%= (item.reserve_price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Disposal Price</div>
+                                <div class="invoice-rate"><%= (item.disposal_price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Claim No</div>
+                                <div class="invoice-rate"><%= item.claim_no %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Brand</div>
+                                <div class="invoice-rate"><%= item.brand %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Status</div>
+                                <div class="invoice-rate"><%= item.status %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Deleted By</div>
+                                <div class="invoice-rate"><%= item.deleted_by %> </div>
+                            </li>
+                            <li class="clearfix">
+                                <div class="invoice-sub">Deleted At</div>
+                                <div class="invoice-rate"><%= item.deleted_at %> </div>
+                            </li>
+                        </ul>
+                        <div class="btn-list">
+                            <a type="button" href="/auth/all-deleted-items" class="btn btn-secondary">Go Back</a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <%- include('./partials/backend-footer.ejs') %> 
+</div>
