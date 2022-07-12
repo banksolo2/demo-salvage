@@ -2,111 +2,165 @@ const mysql = require('mysql');
 const {pool} = require('../../database/connect');
 const itemQuery = require('../../database/query/item');
 const itemBackImageQuery = require('../../database/query/itemBackImage');
+const buyerQuery = require('../../database/query/buyer');
+const bidQuery = require('../../database/query/bid');
+const bidStatusQuery = require('../../database/query/bidStatus');
 let message;
 let urlMessage;
 //How many post you want to show on a page
 const resultsPerPage = 6;
 
-/*
-const home = (req,res)=>{
-    //get database connection
-    pool.getConnection((err,con)=>{
-        if(err) throw err;
-
-        con.query(itemQuery.frontPage,(err,items)=>{
-            if(err){
-                con.release();
-                throw err;
-            }
-
-            const noOfResult = items.length;
-            const noOfPages = Math.ceil(noOfResult / resultsPerPage);
-            const page = req.query.page ? Number(req.query.page) : 1;
-            if(page > noOfPages){
-                urlMessage = encodeURIComponent(noOfPages);
-                res.redirect(`/?page=${urlMessage}`);
-            }
-            else if(page < 1){
-                urlMessage = encodeURIComponent('1');
-                res.redirect(`/?page=${urlMessage}`);
-            }
-
-            //Determine the SQL Limit starting number
-            const startingLimit = (page - 1) * resultsPerPage;
-            con.query(itemQuery.sortPage,[startingLimit,resultsPerPage],(err, result)=>{
-                con.release();
-                if(err) throw err;
-
-                let iterator = (page - 5) < 1 ? 1 : page - 5;
-                let endingLink = (iterator + 9) <= noOfPages ? (iterator + 9) : page + (noOfPages - page);
-
-                if(endingLink < (page + 4)){
-                    iterator -= (page + 4) - noOfPages;
-                }
-
-                res.render('index',{
-                    title : "Home Page",
-                    layout : './layouts/frontend',
-                    items : result,
-                    success : req.query.success,
-                    error : req.query.error,
-                    page,
-                    iterator,
-                    endingLink,
-                    noOfPages
-                });
-
-            });
-            
-        });
-    });
-}
-*/
 
 const home = (req,res)=>{
-    let page = req.query.page;
+    let page = req.query.page || 1;
 
     //get database connection
     pool.getConnection((err,con)=>{
         if(err) throw err;
 
         //get number of pages
-        con.query(itemQuery.getNoOfPages,(err,noOfPages)=>{
+        con.query(itemQuery.getNoOfPages,(err,noOfpages)=>{
             if(err){
                 con.release();
                 throw err;
             }
             else{
-                if(page === undefined){
-                    urlMessage = encodeURIComponent('1');
-                    res.redirect(`/?page=${urlMessage}`);
-                }
-                else if(page > noOfPages[0]){
-                    urlMessage = encodeURIComponent(noOfPages[0]);
-                    res.redirect(`/?page=${urlMessage}`);
-                }
-
+                if(page > noOfpages[0].page) page = noOfpages[0].page;
                 con.query(itemQuery.sortPage,[page],(err,items)=>{
                     con.release();
-                    if(err) throw err;
-                    const maxPageNo = (page + 9);
-
-                    res.render('index',{
-                        title : "Home Page",
-                        layout : './layouts/frontend',
-                        pageNo : items[0].page,
-                        noOfPages : noOfPages[0],
-                        items : items,
-                        maxPageNo : maxPageNo
-                    });
+                    if(err){
+                        //con.release();
+                        throw err;
+                    }
+                    else{
+                        res.render('index',{
+                            title : "Home Page",
+                            layout : './layouts/frontend',
+                            noOfPages : noOfpages[0].page,
+                            page : page,
+                            success : req.query.success,
+                            error : req.query.error,
+                            items : items
+                        })
+                    }
                 });
             }
         });
     });
+    
+}
 
+const bidForm = (req,res)=>{
+    const itemId = req.params.id;
+
+    //get database connection
+    pool.getConnection((err,con)=>{
+        if(err) throw err;
+
+        con.query(itemQuery.view,[itemId],(err,item)=>{
+            if(err){
+                con.release();
+                throw err;
+            }
+            else{
+                // get gallery
+                con.query(itemBackImageQuery.getByItemId,[item[0].item_id],(err,gallery)=>{
+                    con.release();
+                    if(err) throw err;
+
+                    res.render('bid-form',{
+                        title : 'Make Bid',
+                        layout : './layouts/frontend',
+                        item : item[0],
+                        gallery : gallery,
+                        success : req.query.success,
+                        error : req.query.error
+                    });
+                });
+            }
+        });
+    
+    });
+}
+
+const bid = (req,res)=>{
+    const {
+        name,
+        email,
+        phone,
+        amount,
+        narration,
+        itemId
+    } = req.body;
+
+    //get database connection
+    pool.getConnection((err,con)=>{
+        if(err) throw err;
+            
+        //check if buyer email exist
+        con.query(buyerQuery.checkEmailExist,[email],(err,isEmailExist)=>{
+            if(err){
+                con.release();
+                throw err;
+            }
+            else{
+                if(isEmailExist[0].counts >= 1){
+                    //get buyer
+                    con.query(buyerQuery.getByEmail,[email],(err,buyer)=>{
+                        if(err){
+                            con.release();
+                            throw err;
+                        }
+                        else{
+                            //make bid
+                            con.query(bidQuery.insert,[buyer[0].buyer_id,amount,itemId,narration],(err,result)=>{
+                                con.release();
+                                if(err){
+                                    message = 'Enable make bid. Please contact the admin for further assistance.';
+                                    urlMessage = encodeURIComponent(message);
+                                    res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                }
+                                else{
+                                    message = 'Bid was successful...';
+                                    urlMessage = encodeURIComponent(message);
+                                    res.redirect(`/make-bid-form/${itemId}?success=${urlMessage}`);
+                                }
+                            });
+                        }
+                    });
+                }
+                else{
+                    // add new buyer
+                    con.query(buyerQuery.create,[name,phone,email],(err,buyer)=>{
+                        if(err){
+                            con.release();
+                            throw err;
+                        }
+                        else{
+                            con.query(bidQuery.insert,[buyer.insertId,amount,itemId,narration],(err,result)=>{
+                                con.release();
+                                if(err){
+                                    message = 'Enable make bid. Please contact the admin for further assistance.';
+                                    urlMessage = encodeURIComponent(message);
+                                    res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                }
+                                else{
+                                    message = 'Bid was successful...';
+                                    urlMessage = encodeURIComponent(message);
+                                    res.redirect(`/make-bid-form/${itemId}?success=${urlMessage}`);
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
+    });
 }
 
 
 module.exports = {
-    home
+    home,
+    bidForm,
+    bid
 }

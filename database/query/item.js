@@ -1,6 +1,6 @@
 const view = `select i.item_id, i.name, i.reg_no, i.phone, i.address, 
 (select name from states where state_id = i.state_id) as state, i.close_date, i.reserve_price, i.claim_no, 
-(select name from brands where brand_id = i.brand_id) as brand, 
+(select name from brands where brand_id = i.brand_id) as brand, i.page, 
 (select name from salvage_status where salvage_status_id = i.salvage_status_id) as status, i.disposal_price, i.created_at, 
 (select concat(first_name,' ',last_name) from users where user_id = i.created_by) as created_by, i.updated_at, 
 (select concat(first_name,' ',last_name) from users where user_id = i.updated_by) as updated_by, i.approved_at, 

@@ -10,13 +10,13 @@
             </div>
             <div class="col-md-6 text-right">
                 <ol class="breadcrumb breadcrumb-2">
-                    <li>
-                        <a href="#">Home</a>
+                    <li class="active">
+                       Home
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#">Elements</a>
                     </li>
-                    <li class="active">Page Titles</li>
+                    <li class="active">Page Titles</li>-->
                 </ol>
             </div>
         </div>
@@ -47,46 +47,41 @@
                     </div>
                     <div class="tile-right bg-secondary">
                         <div class="description">
-                            <h4 class="mb8"><%= item.name %> </h4>
+                            <h5 class="mb8"><%= item.name %> </h5>
                             <div class="uppercase">Brand : <%= item.brand %> </div>
-                            <div class="uppercase">State : <%= item.state %> </div>
-                            <div>
-                            <span class="uppercase">Address : </span><br/>
-                               <address class="uppercase"><%= item.address %> </address>  
-                            </div>
-                            <a class="btn" href="#">View Details</a>
+                            <div class="uppercase">State : <%= item.state %> </div><br/>
+                            <a class="btn" href="/make-bid-form/<%= item.item_id %>">Make Bid</a>
                         </div>
                     </div>
                 </div>
                 <% } %> 
                 <div class="text-center mt40">
                     <ul class="pagination">
-                        <% if(pageNo > 1){ %> 
+                        <% if(page > 1){ %> 
                         <li>
-                            <a href="/?page=<%= pageNo - 1 %>" aria-label="Previous">
+                            <a href="/?page=<%= (Number(page) - 1) %>" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <% } %>
-                        <% for(let i = pageNo; i <= noOfPages; i++ ){ %>
-                           <% if(pageNo === i){ %> 
-                            <li class="active">
-                                <a href="/?page=<%= i %>"><%= i %> </a>
-                            </li>
-                            <% break %> 
-                            <% }%>
-                            <li> 
+                        <% } %> 
+                        <% for(let i = 1; i <= Number(noOfPages); i++){ %> 
+                            <% if(i === Number(page)){ %> 
+                            <li class="active"> 
                                 <a href="/?page=<%= i %>"><%= i %> </a>
                             </li> 
-                               
-
-                        
-                        <% } %> 
+                            <% }else{ %>
+                                <li> 
+                                    <a href="/?page=<%= i %>"><%= i %> </a>
+                                </li> 
+                            <% } %>  
+                        <% } %>
+                        <% if(Number(noOfPages) !== Number(page)){ %>  
                         <li>
-                            <a href="#" aria-label="Next">
+                            <a href="/?page=<%= (Number(page) + 1) %>" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
+                        <% } %> 
                     </ul>
                 </div>
            </div>

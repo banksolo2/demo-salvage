@@ -54,7 +54,6 @@
                             <th class="table-plus datatable-nosort">Name</th>
                             <th>Brand</th>
                             <th>Reserve Price</th>
-                            <th>Disposal Price</th>
                             <th>Status</th>
                             <th class="datatable-nosort">Action</th>
                         </tr>
@@ -65,7 +64,6 @@
                             <td class="table-plus"><%= item.name %> </td>
                             <td><%= item.brand %></td>
                             <td><%= (item.reserve_price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></td>
-                            <td><%= (item.disposal_price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></td>
                             <td><%= item.status %></td>
                             <td>
                                 <div class="dropdown">

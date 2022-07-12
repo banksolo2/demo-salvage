@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2022 at 06:59 PM
+-- Generation Time: Jul 11, 2022 at 10:55 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -47,7 +47,9 @@ CREATE TABLE `bids` (
 --
 
 INSERT INTO `bids` (`bid_id`, `buyer_id`, `amount`, `item_id`, `narration`, `bid_status_id`, `created_at`, `updated_at`, `approved_by`, `approved_at`, `declined_by`, `declined_at`) VALUES
-(2, 2, '2000000.00', 3, 'I need this car now', 2, '2022-06-28 19:19:17', '2022-06-28 19:19:42', 1, '2022-06-28 19:19:42', NULL, NULL);
+(2, 2, '2000000.00', 3, 'I need this car now', 2, '2022-06-28 19:19:17', '2022-06-28 19:19:42', 1, '2022-06-28 19:19:42', NULL, NULL),
+(3, 1, '200000.00', 13, 'Needed urgent', 1, '2022-07-11 19:24:45', NULL, NULL, NULL, NULL, NULL),
+(4, 4, '1500000.00', 13, 'Please sell to me', 1, '2022-07-11 19:44:43', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -94,8 +96,9 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`brand_id`, `name`, `created_by`, `created_at`, `updated_by`, `updated_at`) VALUES
-(1, 'Cars ', 1, '2022-06-13 14:49:56', 1, '2022-06-13 14:50:29'),
-(2, 'Others', 1, '2022-06-16 08:57:59', NULL, NULL);
+(1, 'Car', 1, '2022-06-13 14:49:56', 1, '2022-07-04 10:02:38'),
+(2, 'Others', 1, '2022-06-16 08:57:59', NULL, NULL),
+(3, 'Truck', 1, '2022-07-04 10:02:57', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -118,7 +121,8 @@ CREATE TABLE `buyers` (
 
 INSERT INTO `buyers` (`buyer_id`, `name`, `phone`, `email`, `created_at`, `updated_at`) VALUES
 (1, 'Peter Olotu', '08080643360', 'peterolo2@gmail.com', '2022-06-27 11:29:54', '2022-06-27 11:43:55'),
-(2, 'Joseph Olotu', '08080643360', 'josepholo2@yahoo.ca', '2022-06-27 11:36:53', '2022-06-27 11:43:32');
+(2, 'Joseph Olotu', '08080643360', 'josepholo2@yahoo.ca', '2022-06-27 11:36:53', '2022-06-27 11:43:32'),
+(4, 'Seun Olotu', '08080643360', 'seunolo2@gmail.com', '2022-07-11 19:44:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -158,7 +162,15 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `name`, `reg_no`, `state_id`, `phone`, `address`, `close_date`, `brand_id`, `salvage_status_id`, `reserve_price`, `disposal_price`, `claim_no`, `created_by`, `created_at`, `front_image`, `updated_by`, `updated_at`, `approved_by`, `approved_at`, `deleted_by`, `deleted_at`, `closed_by`, `closed_at`, `page`) VALUES
-(3, 'Benz c300', '455776869969', 24, '08080643360', 'Block 103, Flat 3, Zone A, 1st car park, Iba Housing Estate', '2022-08-31', 1, 5, '1600000.00', '2000000.00', '5467488849', 1, '2022-06-28 19:15:43', NULL, 1, '2022-06-30 13:57:23', 1, '2022-06-28 19:16:11', 1, '2022-06-30 13:57:23', 1, '2022-06-28 19:19:42', NULL);
+(3, 'Benz c300', '455776869969', 24, '08080643360', 'Block 103, Flat 3, Zone A, 1st car park, Iba Housing Estate', '2022-08-31', 1, 5, '1600000.00', '2000000.00', '5467488849', 1, '2022-06-28 19:15:43', NULL, 1, '2022-07-04 16:45:58', 1, '2022-06-28 19:16:11', 1, '2022-06-30 13:57:23', 1, '2022-06-28 19:19:42', 0),
+(4, 'TOYOTA COROLLA', 'FKJ 318 GU', 15, 'CAP PLC-08034689062', '(Car Park) at  House No1 Opposite CBN close to Nakauna Buba shango-Federeal Low Coast Gombe Gombe state.', '2022-09-30', 1, 2, '1500000.00', '0.00', 'CL/21/M1402/PC', 1, '2022-07-04 09:56:38', 'thumb_2467_600_800_0_0_crop.jpg', 1, '2022-07-04 17:08:16', 1, '2022-07-04 12:33:06', NULL, NULL, NULL, NULL, 2),
+(5, 'TOYOTA CAMRY', 'LSD 109 DV', 24, 'IBUKUN ODUNSI', '16A COMMERCIAL AVENUE SABO-YABA LAGOS', '2022-11-11', 1, 2, '500.00', '0.00', '', 1, '2022-07-04 10:01:00', 'thumb_2458_600_800_0_0_crop.jpg', 1, '2022-07-04 17:08:16', 1, '2022-07-04 12:32:46', NULL, NULL, NULL, NULL, 2),
+(11, 'DAF TRUCK', 'T5495LA', 30, 'Azeez Akeem', 'New Oyo Express Way, Opposite NNPC Petrol Station, Moniya Ibadan  TYPE OF SALVAGE: TRUCK CABIN', '2022-10-28', 3, 2, '500000.00', '0.00', 'CL/22/T0060/CV', 1, '2022-07-04 12:23:01', 'Screenshot 2022-07-04 130536.png', 1, '2022-07-04 17:08:16', 1, '2022-07-04 12:32:31', NULL, NULL, NULL, NULL, 1),
+(12, 'TOYOTA CAMRY XLE', '', 37, 'Okanlawon Abiodun - 08052349881', 'AUTO MIE WORKSHOP ALONG PLOT 343, GUDU, ABUJA.', '2022-10-28', 1, 2, '890000.00', '0.00', 'CL/22/M0542/PC', 1, '2022-07-04 12:30:15', '62b42e392ab39950981670.jpg', 1, '2022-07-04 17:08:16', 1, '2022-07-04 12:32:57', NULL, NULL, NULL, NULL, 1),
+(13, 'DAMAGE TOYOTA HIGHLANDER', 'YEN 396 SY', 32, '08034099314', 'PORT HARCOURT, RIVER STATE', '2022-12-16', 1, 2, '2000000.00', '0.00', 'CL/22/S0134/PC', 1, '2022-07-04 16:43:06', '62ab30f088507317815869.jpg', 1, '2022-07-04 17:08:16', 1, '2022-07-04 16:45:18', NULL, NULL, NULL, NULL, 1),
+(14, 'TOYOTA HIGHLANDER', 'BDG 976 DQ', 24, 'SALVAGE COMMITTEE', 'ARAOTI SALVAGE CAR PARK, SABO YABA', '2023-01-12', 1, 2, '5000000.00', '0.00', 'CL/22/G0117/PC', 1, '2022-07-04 16:54:04', '62a55f032b649696246367.jpg', 1, '2022-07-04 17:08:16', 1, '2022-07-04 17:07:53', NULL, NULL, NULL, NULL, 1),
+(15, 'ACCIDENT INVOLVING TOYOTA HILUX P/UP REG NO: BDG 240 FD', 'BDG 240 FD', 24, 'SALVAGE COMMITTEE', 'SALVAGE CAR PARK Araotii park.', '2022-11-23', 1, 2, '3000000.00', '0.00', 'CL/22/M0136/CV', 1, '2022-07-04 17:00:56', '6273c0ce3792f011015979.png', 1, '2022-07-04 17:08:15', 1, '2022-07-04 17:08:05', NULL, NULL, NULL, NULL, 1),
+(16, 'TWO INDOOR UNIT OF 1.5HP PANASONIC SPLIT AIR CONDITIONER', '', 27, 'Mr. Sajid Ansari (09027775323)', 'Enkay Indo-Nigerian Industries Ltd. Plot NO, 74 , Adekunle Street, Infront of NANDAS HOTEL,', '2022-09-23', 2, 2, '300000.00', '0.00', 'CL/21/T0007/BB', 1, '2022-07-04 17:07:26', '61b1e1d573f29222719156.png', 1, '2022-07-04 17:08:15', 1, '2022-07-04 17:08:15', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -171,6 +183,33 @@ CREATE TABLE `items_back_images` (
   `image` varchar(200) NOT NULL,
   `item_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `items_back_images`
+--
+
+INSERT INTO `items_back_images` (`item_image_id`, `image`, `item_id`) VALUES
+(13, 'thumb_2461_600_800_0_0_crop.jpg', 4),
+(14, 'thumb_2465_600_800_0_0_crop.jpg', 4),
+(15, 'thumb_2462_600_800_0_0_crop.jpg', 4),
+(16, 'thumb_2466_600_800_0_0_crop.jpg', 4),
+(17, 'thumb_2467_600_800_0_0_crop.jpg', 4),
+(18, 'thumb_2463_600_800_0_0_crop.jpg', 4),
+(19, 'thumb_2457_600_800_0_0_crop.jpg', 5),
+(20, 'thumb_2458_600_800_0_0_crop.jpg', 5),
+(21, 'thumb_2456_600_800_0_0_crop.jpg', 5),
+(24, 'Screenshot 2022-07-04 130536.png', 11),
+(25, '62b42e3f8c4fe119693841.jpg', 12),
+(26, '62ab3105ca22f577792190.jpg', 13),
+(27, '62a55fb0cd8cc721343182.jpg', 14),
+(28, '62a55fb18c973426654476.jpg', 14),
+(29, '62a879be9d1fc613800607.jpg', 14),
+(30, '62a55fb01cbba511043793.jpg', 14),
+(31, '62a55fb056a07285964071.jpg', 14),
+(32, '62a55fb0dac00668227893.jpg', 14),
+(33, '6273c0d55b888822958350.png', 15),
+(34, '6273c0dc4e850077055995.png', 15),
+(35, '61b1e1d599bfc412364507.png', 16);
 
 -- --------------------------------------------------------
 
@@ -311,7 +350,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `first_name`, `last_name`, `email`, `password`, `status`, `phone`, `photo`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
 (1, 'Oluwaseun  ', 'Olotu  ', 'seunolo2@gmail.com', '$2b$10$KkzQOKzHl/Du105gNIvy9uedxGJtWZ6ywKE2lYioyusmpuuez8xwu', 'Active', '2348080643360  ', '192298271_3987336984680442_7638215833304910601_n.jpg', '2022-06-13 14:03:01', '2022-06-13 14:18:28', NULL, 0, 1, NULL),
-(2, 'Joseph', 'Olotu', 'josepholo2@yahoo.ca', '$2b$10$/pL6BD174.VWg4zcE04eGuHLvXY8WSFCibJ/5XUm02K8ql9V9X8v.', 'active', '08080643360', NULL, '2022-06-19 19:24:22', NULL, NULL, 1, NULL, NULL);
+(2, 'Joseph  ', 'Olotu  ', 'josepholo2@yahoo.ca', '$2b$10$/pL6BD174.VWg4zcE04eGuHLvXY8WSFCibJ/5XUm02K8ql9V9X8v.', 'active', '08080643360  ', '281359065_5156772357775477_7482367406103171670_n.jpg', '2022-06-19 19:24:22', '2022-07-05 17:24:57', NULL, 1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -415,7 +454,7 @@ ALTER TABLE `users_roles`
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `bid_status`
@@ -427,25 +466,25 @@ ALTER TABLE `bid_status`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `brand_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `buyers`
 --
 ALTER TABLE `buyers`
-  MODIFY `buyer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `buyer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `items_back_images`
 --
 ALTER TABLE `items_back_images`
-  MODIFY `item_image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `item_image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `roles`
