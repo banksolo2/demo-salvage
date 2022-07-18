@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2022 at 10:55 PM
+-- Generation Time: Jul 18, 2022 at 01:09 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -49,7 +49,11 @@ CREATE TABLE `bids` (
 INSERT INTO `bids` (`bid_id`, `buyer_id`, `amount`, `item_id`, `narration`, `bid_status_id`, `created_at`, `updated_at`, `approved_by`, `approved_at`, `declined_by`, `declined_at`) VALUES
 (2, 2, '2000000.00', 3, 'I need this car now', 2, '2022-06-28 19:19:17', '2022-06-28 19:19:42', 1, '2022-06-28 19:19:42', NULL, NULL),
 (3, 1, '200000.00', 13, 'Needed urgent', 1, '2022-07-11 19:24:45', NULL, NULL, NULL, NULL, NULL),
-(4, 4, '1500000.00', 13, 'Please sell to me', 1, '2022-07-11 19:44:43', NULL, NULL, NULL, NULL, NULL);
+(4, 4, '1500000.00', 13, 'Please sell to me', 1, '2022-07-11 19:44:43', NULL, NULL, NULL, NULL, NULL),
+(5, 2, '2500000.00', 11, 'Please sell to me', 1, '2022-07-18 10:26:51', NULL, NULL, NULL, NULL, NULL),
+(6, 2, '200000.00', 11, 'Please sell to me', 1, '2022-07-18 10:27:36', NULL, NULL, NULL, NULL, NULL),
+(7, 4, '200000.00', 11, 'Please sell to me', 1, '2022-07-18 10:48:45', NULL, NULL, NULL, NULL, NULL),
+(8, 4, '300000.00', 11, 'Please sell to me', 1, '2022-07-18 11:06:40', NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -454,7 +458,7 @@ ALTER TABLE `users_roles`
 -- AUTO_INCREMENT for table `bids`
 --
 ALTER TABLE `bids`
-  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `bid_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `bid_status`

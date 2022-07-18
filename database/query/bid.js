@@ -40,7 +40,14 @@ b.buyer_id, b.item_id,
 from bids b where b.bid_id = ?`
 
 const getApprovedBuyerId = `select buyer_id from bids where item_id = ? and 
-bid_status_id = (select bid_status_id from bid_status where lower(name) = 'approved')`
+bid_status_id = (select bid_status_id from bid_status where lower(name) = 'approved')`;
+
+
+const getHighestAmount = `select amount from bids where buyer_id = ? and item_id = ? 
+order by amount desc LIMIT 1`;
+
+
+const getBuyerCountItem = `select count(*) as counts from bids where buyer_id = ? and item_id = ?`;
 
 
 module.exports = {
@@ -52,5 +59,7 @@ module.exports = {
     isItemBidApproved,
     getById,
     getApprovedBuyerId,
-    getViewById
+    getViewById,
+    getHighestAmount,
+    getBuyerCountItem
 }

@@ -112,20 +112,71 @@ const bid = (req,res)=>{
                             throw err;
                         }
                         else{
-                            //make bid
-                            con.query(bidQuery.insert,[buyer[0].buyer_id,amount,itemId,narration],(err,result)=>{
-                                con.release();
+                           // get buyer bid count for item
+                           con.query(bidQuery.getBuyerCountItem,[buyer[0].buyer_id,itemId],(err,buyerItemBidCount)=>{
                                 if(err){
-                                    message = 'Enable make bid. Please contact the admin for further assistance.';
-                                    urlMessage = encodeURIComponent(message);
-                                    res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                    con.release();
+                                    throw err;
                                 }
                                 else{
-                                    message = 'Bid was successful...';
-                                    urlMessage = encodeURIComponent(message);
-                                    res.redirect(`/make-bid-form/${itemId}?success=${urlMessage}`);
+                                    if(buyerItemBidCount[0].counts === 0){
+                                        //make bid
+                                        con.query(bidQuery.insert,[buyer[0].buyer_id,amount,itemId,narration],(err,result)=>{
+                                            con.release();
+                                            if(err){
+                                                message = 'Enable make bid. Please contact the admin for further assistance.';
+                                                urlMessage = encodeURIComponent(message);
+                                                res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                            }
+                                            else{
+                                                message = 'Bid was successful...';
+                                                urlMessage = encodeURIComponent(message);
+                                                res.redirect(`/make-bid-form/${itemId}?success=${urlMessage}`);
+                                            }
+                                        });
+                                    }
+                                    else{
+                                        //get buyer highest bid amount made
+                                        con.query(bidQuery.getHighestAmount,[buyer[0].buyer_id,itemId],(err,highestBid)=>{
+                                            if(err){
+                                                con.release();
+                                                throw err;
+                                            }
+                                            else{
+                                                const highestAmount = highestBid[0].amount;
+                                                if(highestAmount === Number(amount)){
+                                                    con.release();
+                                                    message = `You have already made a bid with this same amount ${amount}`;
+                                                    urlMessage = encodeURIComponent(message);
+                                                    res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                                }
+                                                else if(highestAmount > Number(amount)){
+                                                    message = `You can't make bid with a amount less than amount made before which is ${(highestAmount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+                                                    urlMessage = encodeURIComponent(message);
+                                                    res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                                }
+                                                else{
+                                                    //make bid
+                                                    con.query(bidQuery.insert,[buyer[0].buyer_id,amount,itemId,narration],(err,result)=>{
+                                                        con.release();
+                                                        if(err){
+                                                            message = 'Enable make bid. Please contact the admin for further assistance.';
+                                                            urlMessage = encodeURIComponent(message);
+                                                            res.redirect(`/make-bid-form/${itemId}?error=${urlMessage}`);
+                                                        }
+                                                        else{
+                                                            message = 'Bid was successful...';
+                                                            urlMessage = encodeURIComponent(message);
+                                                            res.redirect(`/make-bid-form/${itemId}?success=${urlMessage}`);
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    }
+                                    
                                 }
-                            });
+                           });
                         }
                     });
                 }
